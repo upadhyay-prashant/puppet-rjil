@@ -35,13 +35,11 @@ class rjil::nova::controller (
   $max_local_block_devices = 3,
   $rewrites                = undef,
   $headers                 = undef,
+  $manage_flavors          = true,
 ) {
 
 # Tests
   include rjil::test::nova_controller
-  class { 'rjil::test::nova_flavor':
-    flavors => $flavors,
-  }
 
   nova_config {
     'DEFAULT/default_floating_pool':      value => $default_floating_pool;
@@ -162,17 +160,23 @@ class rjil::nova::controller (
   include ::nova::vncproxy
   include ::nova::quota
 
-  ##
-  # Create flavors
-  ##
-  Service['httpd'] -> Nova_flavor<||>
-  create_resources('nova_flavor', $flavors, {auth => $nova_auth})
+  if $manage_flavors {
+    ##
+    # Create flavors
+    ##
+    Service['httpd'] -> Nova_flavor<||>
+    create_resources('nova_flavor', $flavors, {auth => $nova_auth})
 
-  ##
-  # Purge unmanaged flavors
-  ##
-  resources {'nova_flavor':
-    purge => true,
+    class { 'rjil::test::nova_flavor':
+      flavors => $flavors,
+    }
+
+    ##
+    # Purge unmanaged flavors
+    ##
+    resources {'nova_flavor':
+      purge => true,
+    }
   }
 
   ##
@@ -189,6 +193,19 @@ class rjil::nova::controller (
     ensure  => file,
     owner   => 'nova',
   }
+
+  $nova_logs = ['nova-api',
+                'nova-cert',
+                'nova-conductor',
+                'nova-consoleauth',
+                'nova-novncproxy',
+                'nova-scheduler',
+  ]
+  rjil::jiocloud::logrotate { $nova_logs:
+    logdir => "/var/log/nova/"
+  }
+  include rjil::nova::logrotate::manage
+
 
   ##
   # Consul service registration

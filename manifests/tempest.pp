@@ -14,6 +14,7 @@ class rjil::tempest (
   $nova_admin_user        = 'nova',
   $nova_admin_password    = 'nova',
   $tempest_test_file      = '/home/jenkins/tempest_tests.txt',
+  $image_name             = 'cirros',
 ) {
 
 ##
@@ -140,16 +141,18 @@ class rjil::tempest (
     'python-neutronclient',
     'python-cinderclient',
     'python-heatclient',
-    'oslo.config',
     'python-oslo.config',
     'python-iso8601',
     'python-fixtures',
     'python-testscenarios',
     'python-ecdsa',
     'python-mox3',
+    'testrepository',
     'subunit',
   ])
 
-  include ::tempest
+  class {'::tempest':
+    image_name => $image_name,
+  }
 }
 

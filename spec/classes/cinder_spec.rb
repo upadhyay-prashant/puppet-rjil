@@ -61,6 +61,7 @@ describe 'rjil::cinder' do
       should contain_class('cinder::scheduler')
       should contain_class('cinder::volume')
       should contain_class('cinder::volume::rbd')
+      should contain_class('cinder::quota')
       should contain_ceph__auth('cinder_volume').with({
         'mon_key'      => 'AQBRSfNSQNCMAxAA/wSNgHmHwzjnl2Rk22P4jA==',
         'client'       => 'cinder_volume',
@@ -95,6 +96,9 @@ describe 'rjil::cinder' do
         'port'          => 0,
         'check_command' => "/usr/lib/jiocloud/tests/service_checks/cinder-scheduler.sh"
       })
+      ['cinder-api', 'cinder-scheduler', 'cinder-volume', 'cinder-manage'].each do |x|
+        should contain_rjil__jiocloud__logrotate(x).with_logdir('/var/log/cinder')
+      end
     end
   end
   context 'with ssl' do

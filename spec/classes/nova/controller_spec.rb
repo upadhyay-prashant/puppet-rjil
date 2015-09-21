@@ -37,6 +37,20 @@ describe 'rjil::nova::controller' do
     }
   end
 
+  context 'without manage_flavors' do
+    let :params do
+      {
+        :manage_flavors => false,
+      }
+    end
+
+    it 'should not manage flavors' do
+      should_not contain_nova_flavor
+
+      should_not contain_rjil__test__nova_flavor
+    end
+  end
+
   context 'with http, defaults' do
     it  do
       should contain_class('rjil::apache')
@@ -124,6 +138,9 @@ describe 'rjil::nova::controller' do
         'tags'          => ['real'],
         'check_command' => "/usr/lib/nagios/plugins/check_http -H localhost -p 101 -u /vnc_auto.html",
       })
+      ['nova-api', 'nova-manage', 'nova-cert', 'nova-conductor', 'nova-consoleauth', 'nova-novncproxy', 'nova-scheduler'].each do |x|
+        should contain_rjil__jiocloud__logrotate(x).with_logdir('/var/log/nova/')
+      end
     end
   end
 end

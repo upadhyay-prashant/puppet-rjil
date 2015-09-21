@@ -14,13 +14,13 @@ rv=$?
 run_puppet() {
         # ensure that our service catalog hiera data is available
         # now run puppet
-        puppet apply --detailed-exitcodes --logdest=syslog `puppet config print default_manifest`
+        puppet apply --config_version='python -m jiocloud.orchestrate current_version' --detailed-exitcodes --logdest=syslog `puppet config print default_manifest`
         # publish the results of that run
         ret_code=$?
-        python -m jiocloud.orchestrate update_own_status puppet $ret_code
+        python -m jiocloud.orchestrate update_own_status puppet_service $ret_code
         if [[ $ret_code = 1 || $ret_code = 4 || $ret_code = 6 ]]; then
                 echo "Puppet failed with return code ${ret_code}, also failing validation"
-                python -m jiocloud.orchestrate update_own_status validation 1
+                python -m jiocloud.orchestrate update_own_status validation_service 1
                 sleep 5
                 exit 1
         fi
@@ -29,7 +29,7 @@ run_puppet() {
 validate_service() {
         run-parts --regex=. --verbose --exit-on-error  --report /usr/lib/jiocloud/tests/
         ret_code=$?
-        python -m jiocloud.orchestrate update_own_status validation $ret_code
+        python -m jiocloud.orchestrate update_own_status validation_service $ret_code
         if [[ $ret_code != 0 ]]; then
                 echo "Validation failed with return code ${ret_code}"
                 sleep 5
@@ -43,7 +43,7 @@ then
        echo current_version=$pending_version > /etc/facter/facts.d/current_version.txt
 
        # Update apt sources to point to new snapshot version
-       (echo 'File<| title == "/etc/consul" |> { purge => false }'; echo 'File<| title == "sources.list.d" |> { purge => false }'; echo 'include rjil::system::apt' ) | puppet apply --logdest=syslog
+       (echo 'File<| title == "/etc/consul" |> { purge => false }'; echo 'File<| title == "sources.list.d" |> { purge => false }'; echo 'include rjil::system::apt' ) | puppet apply --logdest=syslog --config_version='python -m jiocloud.orchestrate current_version'
 
        apt-get update
        apt-get dist-upgrade -o Dpkg::Options::="--force-confold" -y
@@ -66,7 +66,6 @@ if [ $rv -ne 0 ]
 then
   # if we are failing, run puppet to see if it fixes itself
   run_puppet
-  consul reload
 fi
 validate_service
 python -m jiocloud.orchestrate local_version $pending_version

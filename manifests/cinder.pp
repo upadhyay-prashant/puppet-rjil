@@ -64,6 +64,7 @@ class rjil::cinder (
   $volume_nofile           = 10240,
   $rewrites                = undef,
   $headers                 = undef,
+  $use_default_quota_class = false,
 ) {
 
   ######################## Service Blockers and Ordering
@@ -109,6 +110,11 @@ class rjil::cinder (
   ##
 
   cinder_config { 'DEFAULT/osapi_volume_listen_port': value => $localbind_port }
+
+  ##
+  # Cinder default quotas read from the config file.
+
+  cinder_config { 'DEFAULT/use_default_quota_class': value => $use_default_quota_class }
 
   ## Configure apache reverse proxy
   apache::vhost { 'cinder':
@@ -181,12 +187,6 @@ class rjil::cinder (
     require => [ User['cinder'], File['/var/log/cinder'] ],
   }
 
-  rjil::jiocloud::logrotate { 'cinder-manage':
-    service => 'cinder-manage',
-    logfile => '/var/log/cinder/cinder-manage.log'
-  }
-
-
   ##
   # Include rjil::ceph::mon_config because of dependancy.
   ##
@@ -198,6 +198,7 @@ class rjil::cinder (
   include ::cinder::scheduler
   include ::cinder::volume
   include ::cinder::volume::rbd
+  include ::cinder::quota
 
   class { 'rjil::cinder::backup':
     ceph_mon_key => $ceph_mon_key,
@@ -266,17 +267,13 @@ class rjil::cinder (
   }
 
   rjil::jiocloud::consul::service { 'cinder-backup': }
-  
-  rjil::jiocloud::logrotate { 'cinder-api':
-    service => 'cinder-api',
-    logfile => '/var/log/cinder/cinder-api.log'
-  }
-  rjil::jiocloud::logrotate { 'cinder-scheduler':
-    service => 'cinder-scheduler',
-    logfile => '/var/log/cinder/cinder-scheduler.log'
-  }
-  rjil::jiocloud::logrotate { 'cinder-volume':
-    service => 'cinder-volume',
-    logfile => '/var/log/cinder/cinder-volume.log'
+
+  $cinder_logs = ['cinder-api',
+                  'cinder-scheduler',
+                  'cinder-volume',
+                  'cinder-manage',
+                  ]
+  rjil::jiocloud::logrotate { $cinder_logs:
+    logdir => '/var/log/cinder'
   }
 }

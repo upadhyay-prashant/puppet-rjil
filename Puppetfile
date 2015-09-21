@@ -61,17 +61,13 @@ mod 'saz/timezone',
   :git => "#{base_url}/saz/puppet-timezone",
   :ref => 'v2.0.0'
 
-mod 'nanliu/staging',
-  :git => "#{base_url}/nanliu/puppet-staging",
-  :ref => '0.4.1'
-
 mod 'puppetlabs/apache',
   :git => "#{base_url}/puppetlabs/puppetlabs-apache",
   :ref => '1.2.0'
 
 mod 'puppetlabs/apt',
   :git => "#{base_url}/puppetlabs/puppetlabs-apt",
-  :ref => '1.6.0'
+  :ref => '1.8.0'
 
 mod 'stackforge/cinder',
   :git => "#{base_url}/stackforge/puppet-cinder",
@@ -82,8 +78,8 @@ mod 'stackforge/openstacklib',
   :ref => 'origin/master'
 
 mod 'stackforge/ironic',
-  :git => "#{base_url}/JioCloud/puppet-ironic",
-  :ref => 'master'
+  :git => "#{base_url}/jiocloud/puppet-ironic",
+  :ref => 'origin/master'
 
 mod 'puppetlabs/concat',
   :git => "#{base_url}/puppetlabs/puppetlabs-concat",
@@ -119,7 +115,7 @@ mod 'puppetlabs/rabbitmq',
 
 mod 'puppetlabs/stdlib',
   :git => "#{base_url}/puppetlabs/puppetlabs-stdlib",
-  :ref => '4.3.2'
+  :ref => '4.8.0'
 
 mod 'stackforge/vswitch',
   :git => "#{base_url}/stackforge/puppet-vswitch",
@@ -142,7 +138,7 @@ mod 'stephenrjohnson/puppet',
   :ref => '1.0.0'
 
 mod 'jiocloud/contrail',
-  :git => "#{base_url}/jiocloud/jiocloud-contrail",
+  :git => "#{base_url}/JioCloud/jiocloud-contrail",
   :ref => 'master'
 
 mod 'deric/zookeeper',
@@ -159,7 +155,7 @@ mod 'puppet-modules/common',
 
 mod 'solarkennedy/consul',
   :git => "#{base_url}/solarkennedy/puppet-consul",
-  :ref => 'origin/master'
+  :ref => '3128b476b1f6ea695cac1f772f262c078c853032'
 
 mod 'jiocloud/openstack_zeromq',
   :git => "#{base_url}/jiocloud/puppet-openstack_zeromq"
@@ -199,3 +195,15 @@ mod 'puppetlabs/dhcp',
 mod 'rodjek/logrotate',
   :git => "#{base_url}/rodjek/puppet-logrotate/",
   :ref => '89ee645e2350045be48df7ac3ef86cbe4cd9b096'
+
+mod 'nanliu/staging',
+  :git => "#{base_url}/nanliu/puppet-staging",
+  :ref => '9c1c08af301dabe35c0d95ee7de9ab6ef2343139'
+
+mod 'community/archive',
+  :git => "#{base_url}/puppet-community/puppet-archive",
+  :ref => 'f875114ecb962a0d02b4496fab6a871ca1e637c1'
+
+mod 'pdxcat/collectd',
+  :git => "#{base_url}/pdxcat/puppet-module-collectd",
+  :ref => 'v3.2.0'

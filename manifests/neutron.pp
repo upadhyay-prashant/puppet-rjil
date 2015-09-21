@@ -12,6 +12,7 @@ class rjil::neutron (
   $ssl                  = false,
   $rewrites             = undef,
   $headers              = undef,
+  $srv_tag                = 'real',
 ) {
 
   ##
@@ -29,6 +30,10 @@ class rjil::neutron (
   include ::neutron
   include ::neutron::server
   include ::neutron::quota
+
+  rjil::jiocloud::logrotate { 'neutron-server':
+    logfile => '/var/log/neutron/server.log'
+  }
 
   ensure_resource('package','python-six', { ensure => 'latest' })
 
@@ -98,7 +103,15 @@ class rjil::neutron (
   }
 
   rjil::jiocloud::consul::service { 'neutron':
-    tags          => ['real'],
+    tags          => [$srv_tag],
     port          => $public_port,
+  }
+
+  file { "/etc/neutron/policy.json":
+    ensure  => file,
+    owner   => 'root',
+    mode    => '0644',
+    source => 'puppet:///modules/rjil/neutron_policy.json',
+    notify  => Service['neutron-server'],
   }
 }
