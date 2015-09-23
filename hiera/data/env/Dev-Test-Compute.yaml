@@ -48,26 +48,26 @@ rjil::neutron::contrail::fip_pools:
     cidr: 100.1.0.0/24
     public: true
 
-keystone_public_address: "compute-dev-test.jiocloudservices.com"
-keystone_private_address: "compute-dev-test.jiocloudservices.com"
+keystone_public_address: "compute-dev-test.jiocloud.com"
+keystone_private_address: "compute-dev-test.jiocloud.com"
 
-glance_public_address: "compute-dev-test.jiocloudservices.com"
-glance_internal_address: "compute-dev-test.jiocloudservices.com"
+glance_public_address: "compute-dev-test.jiocloud.com"
+glance_internal_address: "compute-dev-test.jiocloud.com"
 
-nova_public_address: "compute-dev-test.jiocloudservices.com"
-nova_internal_address: "compute-dev-test.jiocloudservices.com"
+nova_public_address: "compute-dev-test.jiocloud.com"
+nova_internal_address: "compute-dev-test.jiocloud.com"
 
-neutron_public_address: "compute-dev-test.jiocloudservices.com"
-neutron_internal_address: "compute-dev-test.jiocloudservices.com"
+neutron_public_address: "compute-dev-test.jiocloud.com"
+neutron_internal_address: "compute-dev-test.jiocloud.com"
 
-cinder_public_address: "compute-dev-test.jiocloudservices.com"
-cinder_internal_address: "compute-dev-test.jiocloudservices.com"
+cinder_public_address: "compute-dev-test.jiocloud.com"
+cinder_internal_address: "compute-dev-test.jiocloud.com"
 
-radosgw_public_address: "compute-dev-test.jiocloudservices.com"
-radosgw_internal_address: "compute-dev-test.jiocloudservices.com"
+radosgw_public_address: "compute-dev-test.jiocloud.com"
+radosgw_internal_address: "compute-dev-test.jiocloud.com"
 
 rjil::jiocloud::dns::entries:
-  compute-dev-test.jiocloudservices.com:
+  compute-dev-test.jiocloud.com:
     cname: global.haproxy.service.consul
 
 rjil::base::self_signed_cert: true
