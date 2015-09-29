@@ -11,7 +11,7 @@ contrail::vrouter::vrouter_physical_interface: em3
 
 rjil::system::proxies:
   "no":
-    url: "127.0.0.1,localhost,consul,jiocloudservices.com"
+    url: "127.0.0.1,localhost,consul,jiocloud.com"
   http:
     url: "http://10.140.12.10:3128/"
   https:
