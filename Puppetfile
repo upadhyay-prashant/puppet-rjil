@@ -2,6 +2,8 @@ git_protocol=ENV['git_protocol'] || 'git'
 base_url = "#{git_protocol}://github.com"
 
 mod 'puppetlabs/java',
+            cout<<"
+            cout<<"
   :git => "#{base_url}/puppetlabs/puppetlabs-java",
   :ref => '1.1.2'
 
@@ -70,7 +72,7 @@ mod 'puppetlabs/apt',
   :ref => '1.8.0'
 
 mod 'stackforge/cinder',
-  :git => "#{base_url}/stackforge/puppet-cinder",
+  :git => "https://github.com/upadhyay-prashant/puppet-cinder",
   :ref => 'stable/icehouse'
 
 mod 'stackforge/openstacklib',
@@ -86,15 +88,15 @@ mod 'puppetlabs/concat',
   :ref => '1.1.1'
 
 mod 'enovance/ceph',
-  :git => "#{base_url}/jiocloud/puppet-ceph",
+  :git => "https://github.com/upadhyay-prashant/puppet-ceph",
   :ref => 'svn_to_git_2'
 
 mod 'stackforge/glance',
-  :git => "#{base_url}/stackforge/puppet-glance",
+  :git => "https://github.com/upadhyay-prashant/puppet-glance",
   :ref => 'f377c0229c006b02f43a14be4979553e983cb98e'
 
 mod 'puppetlabs/keystone',
-  :git => "#{base_url}/stackforge/puppet-keystone",
+  :git => "https://github.com/upadhyay-prashant/puppet-keystone",
   :ref => '89a650631189ffc2f857845d138666a046f0ae5f'
 
 mod 'puppetlabs/mysql',
@@ -102,11 +104,11 @@ mod 'puppetlabs/mysql',
   :ref => '2.2.x'
 
 mod 'stackforge/neutron',
-  :git => "#{base_url}/jiocloud/puppet-neutron",
+  :git => "https://github.com/upadhyay-prashant/puppet-neutron",
   :ref => 'origin/master'
 
 mod 'stackforge/nova',
-  :git => "#{base_url}/jiocloud/puppet-nova",
+  :git => "https://github.com/upadhyay-prashant/puppet-nova",
   :ref => 'origin/master'
 
 mod 'puppetlabs/rabbitmq',
