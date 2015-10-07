@@ -73,7 +73,7 @@ mod 'puppetlabs/apt',
 
 mod 'stackforge/cinder',
   :git => "https://github.com/upadhyay-prashant/puppet-cinder",
-  :ref => 'stable/icehouse'
+  :ref => 'stable/kilo'
 
 mod 'stackforge/openstacklib',
   :git => "#{base_url}/jiocloud/puppet-openstacklib",
@@ -89,15 +89,15 @@ mod 'puppetlabs/concat',
 
 mod 'enovance/ceph',
   :git => "https://github.com/upadhyay-prashant/puppet-ceph",
-  :ref => 'svn_to_git_2'
+  :ref => 'master'
 
 mod 'stackforge/glance',
   :git => "https://github.com/upadhyay-prashant/puppet-glance",
-  :ref => 'f377c0229c006b02f43a14be4979553e983cb98e'
+  :ref => 'stable/kilo'
 
 mod 'puppetlabs/keystone',
   :git => "https://github.com/upadhyay-prashant/puppet-keystone",
-  :ref => '89a650631189ffc2f857845d138666a046f0ae5f'
+  :ref => 'stable/kilo'
 
 mod 'puppetlabs/mysql',
   :git => "#{base_url}/puppetlabs/puppetlabs-mysql",
@@ -105,11 +105,11 @@ mod 'puppetlabs/mysql',
 
 mod 'stackforge/neutron',
   :git => "https://github.com/upadhyay-prashant/puppet-neutron",
-  :ref => 'origin/master'
+  :ref => 'stable/kilo'
 
 mod 'stackforge/nova',
   :git => "https://github.com/upadhyay-prashant/puppet-nova",
-  :ref => 'origin/master'
+  :ref => 'stable/kilo'
 
 mod 'puppetlabs/rabbitmq',
   :git => "#{base_url}/puppetlabs/puppetlabs-rabbitmq",
